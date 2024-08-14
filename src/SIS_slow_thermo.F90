@@ -1322,7 +1322,8 @@ subroutine SIS2_thermodynamics(IST, dt_slow, CS, OSS, FIA, IOF, G, US, IG)
 
       ! With transmuted ice, the ice is non-conservatively changed to match the ocean properties.
       IOF%flux_salt(i,j) = IOF%flux_salt(i,j) + salt_to_ocn * (0.001*Idt_slow)
-      net_melt(i,j) = net_melt(i,j) + water_to_ocn * Idt_slow  ! This goes to IOF%lprec_ocn_top.
+      net_melt(i,j) = net_melt(i,j) + water_to_ocn * Idt_slow
+      IOF%seaice_melt(i,j) = net_melt(i,j)
       IOF%Enth_mass_out_ocn(i,j) = IOF%Enth_mass_out_ocn(i,j) + heat_to_ocn
 
       ! With transmuted ice, the imbalances are stored to close the heat and salt budgets.
@@ -1368,12 +1369,6 @@ subroutine SIS2_thermodynamics(IST, dt_slow, CS, OSS, FIA, IOF, G, US, IG)
     call coupler_type_send_data(IOF%tr_flux_ocn_top, CS%Time)
 
   call disable_SIS_averaging(CS%diag)
-
-  ! Combine the liquid precipitation with the net melt of ice and snow for
-  ! passing to the ocean. These may later be kept separate.
-  do j=jsc,jec ; do i=isc,iec
-    IOF%lprec_ocn_top(i,j) = IOF%lprec_ocn_top(i,j) + net_melt(i,j)
-  enddo ; enddo
 
   ! Make sure TrLay is no longer allocated
   if(allocated(TrLay)) deallocate(TrLay)
