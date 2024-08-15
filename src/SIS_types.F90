@@ -2220,7 +2220,7 @@ subroutine IOF_chksum(mesg, IOF, G, US, mech_fluxes, thermo_fluxes)
     call hchksum(IOF%evap_ocn_top,    trim(mesg)//" IOF%evap_ocn_top",  G%HI, scale=US%RZ_T_to_kg_m2s)
     call hchksum(IOF%lprec_ocn_top,   trim(mesg)//" IOF%lprec_ocn_top", G%HI, scale=US%RZ_T_to_kg_m2s)
     call hchksum(IOF%fprec_ocn_top,   trim(mesg)//" IOF%fprec_ocn_top", G%HI, scale=US%RZ_T_to_kg_m2s)
-    call hchksum(IOF%seaice_melt,     trim(mesg)//" IOF%seaice_melt", G%HI, scale=US%RZ_T_to_kg_m2s)
+    call hchksum(IOF%seaice_melt,     trim(mesg)//" IOF%seaice_melt",   G%HI, scale=US%RZ_T_to_kg_m2s)
   endif
   if (do_mech) then
     call hchksum(IOF%flux_u_ocn,      trim(mesg)//" IOF%flux_u_ocn",   G%HI, scale=US%RZ_T_to_kg_m2s*US%L_T_to_m_s)
