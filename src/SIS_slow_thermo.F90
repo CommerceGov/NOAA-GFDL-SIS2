@@ -855,9 +855,7 @@ subroutine SIS2_thermodynamics(IST, dt_slow, CS, OSS, FIA, IOF, G, US, IG)
   enddo ; enddo ; enddo
 
   ! Reset sea ice melt rate to zero
-  do j=jsc,jec ; do i=isc,iec
-    IOF%seaice_melt(i,j) = 0.
-  enddo ; enddo
+  IOF%seaice_melt(:,:) = 0.
 
   ! Add fluxes of snow and other properties to the ocean due to recent ridging or drifting events.
   if (allocated(IST%snow_to_ocn)) then
